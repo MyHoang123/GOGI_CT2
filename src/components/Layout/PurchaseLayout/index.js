@@ -128,7 +128,7 @@ function Purchase({ Children }) {
                                             <div className={cx('Purchase_content_body_container_body')} style={{ padding: '.2vw 1vw' }}>
                                                 <div className={cx('Purchase_content_body_container_body-left')}>
                                                     <div className={cx('Purchase_content_body_container_body-left-img')}>
-                                                        <img style={{ width: '90%', objectFit: 'cover' }} src={`http://localhost:8080/api/v12/showimgproduct/${product.Img}`} />
+                                                        <img style={{ width: '90%', objectFit: 'cover' }} src={`${process.env.REACT_APP_CALL_API}/api/v12/showimgproduct/${product.Img}`} />
                                                     </div>
                                                     <div className={cx('Purchase_content_body_container_body-left-content')}>
                                                         <h3>{product.Name}</h3>

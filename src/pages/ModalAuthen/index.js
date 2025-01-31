@@ -21,7 +21,7 @@ function App() {
         e.preventDefault()
         if (phone.length > 0 && pass.length > 0) {
             try {
-                const response = await axios.post('http://localhost:8080/api/v12/login', { Phone: phone, Pass: pass });
+                const response = await axios.post(`${process.env.REACT_APP_CALL_API}/api/v12/login`, { Phone: phone, Pass: pass });
                 if (response.data.massege === 'Thanh cong') {
                     cookies.set('AccessToken', response.data.token, { path: '/', maxAge: 604800 }); // 604800 giây = 7 ngày
                     navigate('/')

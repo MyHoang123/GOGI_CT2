@@ -59,7 +59,7 @@ function OTPAuthen() {
                 OTP: OTPsend
             }
             try {
-                const response = await axios.post('http://localhost:8080/api/v12/verifyregister', OTPverify);
+                const response = await axios.post(`${process.env.REACT_APP_CALL_API}/api/v12/verifyregister`, OTPverify);
                 console.log(response)
                 if (response.data.massege === 'Thanh cong') {
                     setPhone(response.data.token)
@@ -157,7 +157,7 @@ function OTPAuthen() {
             const isValidUpper = regexUpper.test(Pass);
             if(isValid && isValidUpper && Gender !== null) {
                 try {
-                    const response = await axios.post('http://localhost:8080/api/v12/updatepassregister', {token: Phone,Pass: Pass, Gender:Gender});
+                    const response = await axios.post(`${process.env.REACT_APP_CALL_API}/api/v12/updatepassregister`, {token: Phone,Pass: Pass, Gender:Gender});
                     if(response.data.massege === 'Thanh cong') {
                         setStepRegister(3)
                         lineStatus.current.style.width = '25vw'
@@ -432,7 +432,7 @@ function OTPAuthen() {
                         </div>
                         <div className={cx('Modal_login_input_list')}>
                             <div className={cx('Info_user_container')}>
-                                <img style={{ borderRadius: '50%' }} src={user.Classify === 'user' ? `http://localhost:8080/api/v12/avtuser/${user.Avt}` : `${user.Avt}`} className={cx('Img_user_login')} />
+                                <img style={{ borderRadius: '50%' }} src={user.Classify === 'user' ? `${process.env.REACT_APP_CALL_API}/api/v12/avtuser/${user.Avt}` : `${user.Avt}`} className={cx('Img_user_login')} />
                                 <h2 className={cx('Info_user_container_name')}>{user.UserName}</h2>
                                 <h3 className={cx('Info_user_container_phone')}>(84+) {user.Sdt}</h3>
                                 <button onClick={() => handleClickLoginUser(user, token)}>Đăng nhập</button>
