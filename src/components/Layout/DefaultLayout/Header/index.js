@@ -37,7 +37,7 @@ function NavbarComponent({ anchoring, getSocket }) {
             dispatch(getUser(cookies.get('AccessToken')))
             dispatch(getNoti(cookies.get('AccessToken')))
             dispatch(getLengthCard(cookies.get('AccessToken')))
-            newSocket = io('http://localhost:8080', {
+            newSocket = io(`${process.env.REACT_APP_CALL_API}`, {
                 auth: {
                     token: cookies.get('AccessToken')
                 }
