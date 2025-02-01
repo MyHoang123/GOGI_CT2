@@ -356,60 +356,6 @@ function OTPAuthen() {
                                                 ></path></svg>
                                             Female
                                         </label>
-                                        {/* <input
-                                            className={cx('gender-radio-buttons')}
-                                            id={cx('other')}
-                                            value="other"
-                                            name="gender"
-                                            type="radio"
-                                            onChange={(e) => setGender(e.target.value)}
-                                        />
-                                        <label className={cx('genderlabel', 'otherbutton')} htmlFor={cx('other')}>
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                fill="none"
-                                                viewBox="0 0 78 75"
-                                                className={cx('other-gender')}
-                                            >
-                                                <path
-                                                    strokeLinecap="round"
-                                                    strokeWidth="6"
-                                                    stroke="#9B4AED"
-                                                    d="M73.4657 16.6983L48.2159 16.6984L19.9816 58.0001L2.99911 58"
-                                                ></path>
-                                                <path
-                                                    strokeLinecap="round"
-                                                    strokeWidth="6"
-                                                    stroke="#9B4AED"
-                                                    d="M73.1641 16.698L59.4705 2.99992"
-                                                ></path>
-                                                <path
-                                                    strokeLinecap="round"
-                                                    strokeWidth="6"
-                                                    stroke="#9B4AED"
-                                                    d="M59.4648 30.696L73.1629 17.0024"
-                                                ></path>
-                                                <path
-                                                    strokeLinecap="round"
-                                                    strokeWidth="6"
-                                                    stroke="#9B4AED"
-                                                    d="M74.022 57.8121L51.1697 57.8121L19.9997 16.9999L3 17"
-                                                ></path>
-                                                <path
-                                                    strokeLinecap="round"
-                                                    strokeWidth="6"
-                                                    stroke="#9B4AED"
-                                                    d="M73.748 57.8123L61.3547 71.51"
-                                                ></path>
-                                                <path
-                                                    strokeLinecap="round"
-                                                    strokeWidth="6"
-                                                    stroke="#9B4AED"
-                                                    d="M61.3496 43.8147L73.747 57.5079"
-                                                ></path>
-                                            </svg>
-                                            Other
-                                        </label> */}
                                     </div>
                                 </div>
                             </div>
