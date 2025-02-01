@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Notice, CreateBill } from '../../../../hooks'
+import { OpenLoading, CloseLoading } from "~/hooks/Loading";
 import axios from "axios";
 const CardSlice = createSlice({
     name: 'cardProducts',
@@ -57,10 +58,15 @@ const CardSlice = createSlice({
     },
     extraReducers: builder => {
         builder.addCase(getProductCard.pending, (state, action) => {
+            OpenLoading()
         }).addCase(getProductCard.fulfilled, (state, action) => {
+            CloseLoading()
             state.data = action.payload[0]
             state.suggest = action.payload[1]
+        }).addCase(deleteProductCard.pending, (state, action) => {
+            OpenLoading()
         }).addCase(deleteProductCard.fulfilled, (state, action) => {
+            CloseLoading()
             if (action.payload[0] === 'Thanh cong') {
                 const resuilt = state.data.filter((product) => product.Id !== action.payload[1])
                 const resuilt1 = state.checkCard.filter((product) => product !== action.payload[1])

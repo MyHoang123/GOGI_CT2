@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { OpenLoading, CloseLoading } from "~/hooks/Loading";
 const CardSlice = createSlice({
     name: 'cardProducts',
     initialState: { bill: [], detailBill: [], Comment: [] },
@@ -21,11 +22,11 @@ const CardSlice = createSlice({
         },
         updateBill: (state, action) => {
             state.bill.forEach((b) => {
-              if(b.Id === action.payload[0]) {
-                b.Status = action.payload[1]
-              }
+                if (b.Id === action.payload[0]) {
+                    b.Status = action.payload[1]
+                }
             })
-            if(state.detailBill.length > 0) {
+            if (state.detailBill.length > 0) {
                 state.detailBill[0].Status = action.payload[1]
             }
         },
@@ -40,29 +41,41 @@ const CardSlice = createSlice({
     },
 
     extraReducers: builder => {
-        builder.addCase(getBill.fulfilled, (state, action) => {
-            if(action.payload[0] === 'Thanh cong') {
+        builder.addCase(getBill.pending, (state, action) => {
+            OpenLoading()
+        }).addCase(getBill.fulfilled, (state, action) => {
+            CloseLoading()
+            if (action.payload[0] === 'Thanh cong') {
                 state.bill = action.payload[1]
             }
+        }).addCase(getBillDetail.pending, (state, action) => {
+            OpenLoading()
         }).addCase(getBillDetail.fulfilled, (state, action) => {
+            CloseLoading()
             if (action.payload.massege === 'Thanh cong') {
                 state.detailBill = action.payload.data
             }
             else {
                 state.detailBill = []
             }
+        }).addCase(getComment.pending, (state, action) => {
+            OpenLoading()
         }).addCase(getComment.fulfilled, (state, action) => {
-            if(action.payload[0] === 'Thanh cong') {
+            CloseLoading()
+            if (action.payload[0] === 'Thanh cong') {
                 state.Comment = action.payload[1]
             }
+        }).addCase(commentAction.pending, (state, action) => {
+            OpenLoading()
         }).addCase(commentAction.fulfilled, (state, action) => {
-            if(action.payload[0] === 'Thanh cong') {
+            CloseLoading()
+            if (action.payload[0] === 'Thanh cong') {
                 state.bill.forEach((element) => {
-                    if(element.Id === action.payload[1].IdBill) {
+                    if (element.Id === action.payload[1].IdBill) {
                         element.Status = 4
                     }
                 })
-                if(state.Comment.length > 0) {
+                if (state.Comment.length > 0) {
                     const newArr = {
                         Containt: action.payload[1].Containt,
                         Star: action.payload[1].Star,
@@ -70,9 +83,9 @@ const CardSlice = createSlice({
                     }
                     state.Comment[action.payload[1].i] = newArr
                 }
-                if(state.detailBill.length > 0) {
+                if (state.detailBill.length > 0) {
                     state.detailBill.forEach((element) => {
-                        if(element.Id === action.payload[1].IdProduct) {
+                        if (element.Id === action.payload[1].IdProduct) {
                             element.Status = 4
                         }
                     })
@@ -81,9 +94,11 @@ const CardSlice = createSlice({
         })
     }
 })
-export const getBill = createAsyncThunk('getBill', async (token) => {
+export const getBill = createAsyncThunk('getBillAll', async (token) => {
     const response = await axios.get(`${process.env.REACT_APP_CALL_API}/api/v12/showbill?token=${token}`)
-        return [response.data.massege,response.data.data]
+    if (response.data.massege === 'Thanh cong') {
+        return [response.data.massege, response.data.data]
+    }
 })
 export const getBillDetail = createAsyncThunk('getBillDetail', async (Bill) => {
     const response = await axios.get(`${process.env.REACT_APP_CALL_API}/api/v12/getbill?token=${Bill.token}&idbill=${Bill.IdBill}`)
@@ -91,11 +106,11 @@ export const getBillDetail = createAsyncThunk('getBillDetail', async (Bill) => {
 })
 export const getComment = createAsyncThunk('getCommentUser', async (User) => {
     const response = await axios.get(`${process.env.REACT_APP_CALL_API}/api/v12/showcommentuser?token=${User.token}&IdBill=${User.IdBill}`)
-    return [response.data.massege,response.data.data]
+    return [response.data.massege, response.data.data]
 })
 export const commentAction = createAsyncThunk('comment', async (Comment) => {
-    const response = await axios.post(`${process.env.REACT_APP_CALL_API}/api/v12/createcomment`,Comment)
-    return [response.data.massege,Comment]
+    const response = await axios.post(`${process.env.REACT_APP_CALL_API}/api/v12/createcomment`, Comment)
+    return [response.data.massege, Comment]
 })
 export default CardSlice
 export const { filterStatus, filterAll, updateBill, resetComment, resetPurchase } = CardSlice.actions 

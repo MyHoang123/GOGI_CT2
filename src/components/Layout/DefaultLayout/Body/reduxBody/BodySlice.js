@@ -2,6 +2,7 @@ import axios from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
+import { OpenLoading, CloseLoading } from "~/hooks/Loading";
 const BodySlice = createSlice({
   name: 'products',
   initialState: { categoris: {Type: [], categori: []}, products: { product: [], page: 1 },comment: [],lenghtCard: 0 },
@@ -105,16 +106,19 @@ const BodySlice = createSlice({
     },
   },
   extraReducers: builder => {
-    builder.addCase(getProduct.pending, (state, action) => {
-    }).addCase(getProduct.fulfilled, (state, action) => {
+    builder.addCase(getProduct.fulfilled, (state, action) => {
       state.products.product = action.payload[0]
       state.categoris.Type = action.payload[2]
       state.categoris.categori = action.payload[1]
+    }).addCase(filterCategoris.pending, (state, action) => {
+      OpenLoading()
     }).addCase(filterCategoris.fulfilled, (state, action) => {
+      CloseLoading()
       state.products.product = action.payload
       state.products.page = 1
     }).addCase(getComment.fulfilled, (state, action) => {
       state.comment = action.payload
+    }).addCase(addCard.pending, (state, action) => {
     }).addCase(addCard.fulfilled, (state, action) => {
         if(action.payload === 'Thanh cong') {
           state.lenghtCard += 1
@@ -144,7 +148,6 @@ export const getProduct = createAsyncThunk('getProduct', async () => {
   const resProduct = await axios.get(`${process.env.REACT_APP_CALL_API}/api/v12/showproduct`)
   const resCate = await axios.get(`${process.env.REACT_APP_CALL_API}/api/v12/showcategori`)
   const resTypes = await axios.get(`${process.env.REACT_APP_CALL_API}/api/v12/showtype`)
-  console.log("🚀 ~ getProduct ~ resTypes:", resTypes)
   return [resProduct.data.data, resCate.data.data, resTypes.data.data]
 })
 export const filterCategoris = createAsyncThunk('filterCategoris', async (Filter) => {

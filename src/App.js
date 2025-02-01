@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { publicRoutes } from '~/Routes';
-
+import LoadingLayout from './components/Layout/LoadingLayout';
 function App() {
   return (
     <Router>
@@ -20,6 +20,7 @@ function App() {
             />
           })}
         </Routes>
+        <LoadingLayout />
       </div>
     </Router>
   );

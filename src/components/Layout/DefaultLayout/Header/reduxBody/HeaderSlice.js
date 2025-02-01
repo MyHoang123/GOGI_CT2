@@ -1,6 +1,7 @@
 import axios from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Notice } from '../../../../../hooks'
+import { OpenLoading, CloseLoading } from "~/hooks/Loading";
 const HeaderSlice = createSlice({
   name: 'productsBestseller',
   initialState: {products: [],user: {}, Amount: 0, Noti: []},
@@ -15,7 +16,9 @@ const HeaderSlice = createSlice({
   },
   extraReducers: builder => {
     builder.addCase(getBestSeller.pending,(state, action) => {
+      OpenLoading()
     }).addCase(getBestSeller.fulfilled, (state, action) => {
+      CloseLoading()
       state.products = action.payload
     }).addCase(getUser.fulfilled, (state, action) => {
       state.user = action.payload[0]
@@ -55,8 +58,7 @@ export const filterCategoris = createAsyncThunk('filterCategoris', async (Filter
 })
 export const getUser = createAsyncThunk('getUser', async (Token) => {
   const response = await axios.get(`${process.env.REACT_APP_CALL_API}/api/v12/getuserlogin?token=${Token}`);
-  const responseNoti = await axios.get(`${process.env.REACT_APP_CALL_API}/api/v12/shownotifi?token=${Token}`);
-  return [response.data.data,responseNoti.data.data]
+  return [response.data.data]
 })
 export const getNoti = createAsyncThunk('getNoti', async (Token) => {
   const responseNoti = await axios.get(`${process.env.REACT_APP_CALL_API}/api/v12/shownotifi?token=${Token}`);

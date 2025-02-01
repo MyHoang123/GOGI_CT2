@@ -1,8 +1,5 @@
 import axios from "axios";
-import ImgGogi from "../../../../Asset/images/backroundnew2.jpg"
-import ImgGogiMini from "../../../../Asset/images/ytb4.jpg"
-import ImgGogiMini1 from "../../../../Asset/images/ytb3.jpg"
-import { memo, useContext, useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 function SlideImgPage({ cx }) {
     const [bodyimg, setBodyimg] = useState([])
     const [youtubelink, setYoutubeLink] = useState(null)

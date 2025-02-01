@@ -91,9 +91,9 @@ function Purchase() {
                 <li onClick={() => setActive(5)} className={Active === 5 ? cx('active') : null}>Đã hủy</li>
             </ul>
             {ListBill[1] ? (
-                (ListBill[0].map((Bill) => (
+                (ListBill[0].map((Bill, i) => (
                     (Bill.Filter === 'visible' ? (
-                        <div key={Bill.Id} className={cx('Purchase_content_body')}>
+                        <div key={i} className={cx('Purchase_content_body')}>
                             <div className={cx('Purchase_content_body_container')}>
                                 <div className={cx('Purchase_content_body_container_header')}>
                                     <div className={cx('Purchase_content_body_container_header-item')}>

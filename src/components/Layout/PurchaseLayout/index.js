@@ -124,7 +124,7 @@ function Purchase({ Children }) {
                             <div className={cx('comment_container_item')}>
                                 {comment.length > 0 ? (
                                     (product.map((product, i) => (
-                                        <div key={i}>
+                                        <div key={product.Id}>
                                             <div className={cx('Purchase_content_body_container_body')} style={{ padding: '.2vw 1vw' }}>
                                                 <div className={cx('Purchase_content_body_container_body-left')}>
                                                     <div className={cx('Purchase_content_body_container_body-left-img')}>
