@@ -158,6 +158,7 @@ function OTPAuthen() {
             if(isValid && isValidUpper && Gender !== null) {
                 try {
                     const response = await axios.post(`${process.env.REACT_APP_CALL_API}/api/v12/updatepassregister`, {token: Phone,Pass: Pass, Gender:Gender});
+                    console.log("🚀 ~ handleClickRegister ~ response:", response)
                     if(response.data.massege === 'Thanh cong') {
                         setStepRegister(3)
                         lineStatus.current.style.width = '25vw'
