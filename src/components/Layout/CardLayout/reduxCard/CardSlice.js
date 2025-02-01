@@ -73,13 +73,17 @@ const CardSlice = createSlice({
                 state.data = resuilt
                 state.checkCard = resuilt1
             }
+        }).addCase(checkVoucher.pending, (state, action) => {
+            OpenLoading()
         }).addCase(checkVoucher.fulfilled, (state, action) => {
+            CloseLoading()
             if (action.payload[1] === 'Thanh cong') {
                 state.voucher = action.payload[0]
                 Notice('success', 'Thành Công', `${-action.payload[0]}`, '')
             }
         }).addCase(checkVoucher.rejected, (state, action) => {
             state.voucher = 0
+            CloseLoading()
             Notice('error', 'Thất Bại', `Không Hợp Lệ !`, '')
         }).addCase(addCardCard.fulfilled, (state, action) => {
             if(action.payload[0] === 'Thanh cong') {
