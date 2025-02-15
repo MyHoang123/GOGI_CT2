@@ -24,7 +24,7 @@
 }
 
 html {
-    font-size: 200.5%;
+    font-size: 100.5%;
 }
 div:where(.swal2-container) div:where(.swal2-popup) {
     font-size: .7vw !important;
@@ -63,112 +63,39 @@ body {
     transform: scale(1);
     transition: opacity .4s linear, transform .4s linear;
 }
-.Loading_modal {
+/* From Uiverse.io by milley69 */ 
+.loading {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 10000;
-    background-color: rgba(0, 0, 0, 0.6);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 1;
+    top: 50%;
+    left: 50%;
 }
-.Loading_modal.unactive {
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity .5s linear;
-}
-.Loading_panWrapper {
-    width: 200px;
-    height: fit-content;
-    position: relative;
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-end;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.Loading_pan {
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-    width: 100%;
-    height: fit-content;
-    animation: cooking 1.7s infinite;
-}
-@keyframes cooking {
-    0% {
-    transform: rotate(0deg);
-    transform-origin: top right;
+.loading svg polyline {
+    fill: none;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  
+  .loading svg polyline#back {
+    fill: none;
+    stroke: #ff4d5033;
+  }
+  
+  .loading svg polyline#front {
+    fill: none;
+    stroke: #ff4d4f;
+    stroke-dasharray: 48, 144;
+    stroke-dashoffset: 192;
+    animation: dash_682 1.4s linear infinite;
+  }
+  
+  @keyframes dash_682 {
+    72.5% {
+      opacity: 0;
     }
-    10% {
-    transform: rotate(-4deg);
-    transform-origin: top right;
+  
+    to {
+      stroke-dashoffset: 0;
     }
-    50% {
-    transform: rotate(20deg);
-    }
-    100% {
-    transform: rotate(0deg);
-    }
-}
-
-.Loading_food {
-    position: absolute;
-    width: 40%;
-    height: 6px;
-    background: linear-gradient(to bottom, rgb(82, 33, 33), rgb(200, 106, 106));
-    left: 10px;
-    border-radius: 50%;
-    animation: flip 1.7s infinite;
-    z-index: 2;
-}
-@keyframes flip {
-    0% {
-    transform: translateY(0px) rotate(0deg);
-    }
-    50% {
-    transform: translateY(-100px) rotate(180deg);
-    }
-    100% {
-    transform: translateY(0px) rotate(360deg);
-    }
-}
-.Loading_panBase {
-    z-index: 3;
-    width: 50%;
-    height: 22px;
-    border-bottom-left-radius: 40px;
-    border-bottom-right-radius: 40px;
-    background: linear-gradient(to top, rgb(3, 156, 156), rgb(10, 191, 191));
-}
-.Loading_panHandle {
-    width: 40%;
-    background: linear-gradient(to bottom, rgb(18, 18, 18), rgb(74, 74, 74));
-    height: 10px;
-    border-radius: 10px;
-}
-.Loading_panShadow {
-    width: 70px;
-    height: 8px;
-    background-color: rgba(0, 0, 0, 0.21);
-    margin-left: 15px;
-    border-radius: 10px;
-    animation: shadow 1.7s infinite;
-    filter: blur(5px);
-}
-@keyframes shadow {
-    0% {
-    transform: scaleX(0.7);
-    }
-    50% {
-    transform: scaleX(1);
-    }
-    100% {
-    transform: scaleX(0.7);
-    }
-}
+  }
+  

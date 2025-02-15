@@ -1,6 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { publicRoutes } from '~/Routes';
+import { Suspense } from "react";
 import LoadingLayout from './components/Layout/LoadingLayout';
+
 function App() {
   return (
     <Router>
@@ -11,16 +13,19 @@ function App() {
             const Page = route.component;
             return <Route key={index} path={route.path} element={
               Page !== null ? (
-                <Layout Children={<Page />}>
-                </Layout>
+                <Suspense fallback={<LoadingLayout />}>
+                  <Layout Children={<Page />}>
+                  </Layout>
+                </Suspense>
               ) : (
-                <Layout />
+                <Suspense fallback={<LoadingLayout />}>
+                  <Layout />
+                </Suspense>
               )
             }
             />
           })}
         </Routes>
-        <LoadingLayout />
       </div>
     </Router>
   );

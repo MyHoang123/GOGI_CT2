@@ -130,7 +130,7 @@ function Products({ ALLStar, ModalDetail, cx }) {
                     (product.Status === 'visible' ? (
                         <div key={product.Id} className={cx('card')}>
                             <div className={cx('image-container')}>
-                                <img src={`${process.env.REACT_APP_CALL_API}/api/v12/showimgproduct/${product.Img}`} />
+                                <img loading='lazy' src={`${process.env.REACT_APP_CALL_API}/api/v12/showimgproduct/${product.Img}`} />
                             </div>
                             <FontAwesomeIcon className={cx('heart_product')} icon={faHeart} />
                             <div className={cx('content')}>
