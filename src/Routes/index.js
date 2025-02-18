@@ -17,6 +17,7 @@ const Purchase = lazy(() => import('~/pages/Purchase'))
 const DetailBill = lazy(() => import('~/pages/DetailBill'))
 const OTPAuthen = lazy(() => import('~/pages/ModalAuthen/Authen.js'))
 const User = lazy(() => import('~/pages/User'))
+const ProductPage = lazy(() => import('~/pages/Product'))
 
 
 
@@ -28,6 +29,7 @@ const publicRoutes = [
     {path: '/purchase', component: Purchase, layout: PurchaseLayout ,},
     {path: '/purchase/detail/:IdBill', component: DetailBill, layout: PurchaseLayout ,},
     {path: '/card', component: null, layout: CardLayout ,},
-    {path: '/', component: null, layout: DefaultLayout ,},
+    {path: '/:Categori', component: ProductPage, layout: DefaultLayout ,},
+    {path: '/', component: ProductPage, layout: DefaultLayout ,},
 ]
 export { publicRoutes }

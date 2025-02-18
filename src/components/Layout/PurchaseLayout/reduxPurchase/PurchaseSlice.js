@@ -96,6 +96,7 @@ const CardSlice = createSlice({
 })
 export const getBill = createAsyncThunk('getBillAll', async (token) => {
     const response = await axios.get(`${process.env.REACT_APP_CALL_API}/api/v12/showbill?token=${token}`)
+    console.log("🚀 ~ getBill ~ response:", response)
     if (response.data.massege === 'Thanh cong') {
         return [response.data.massege, response.data.data]
     }

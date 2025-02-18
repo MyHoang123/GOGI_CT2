@@ -1,0 +1,438 @@
+.Products_Container_contain {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    background-color: var(--primary-color);
+    padding: 0.4vw 2vw;
+}
+
+.card {
+    --accent-color: #990000;
+    position: relative;
+    width: 14.5vw;
+    background: white;
+    border-radius: .8vw !important;
+    padding: 0.4vw;
+    // box-shadow: rgba(100, 100, 111, 0.2) 0px 50px 30px -20px;
+    margin: .3vw .64vw;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    height: 44%;
+}
+
+.Container_page {
+    width: 100%;
+    margin-top: 1vw;
+    display: flex;
+    justify-content: center;
+}
+
+.Products_Container_page-list {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding-left: 0;
+    background-color: var(--primary-color);
+    border: 1px solid #fff;
+
+    li {
+        font-size: 10px;
+        text-align: center;
+        font-style: 300;
+        cursor: pointer;
+        border-left: 1px solid #fff;
+        width: 2vw;
+        height: 2vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        a {
+            font-size: 12px;
+            color: #fff;
+            text-decoration: none;
+            padding: 0.37vw 0.8vw;
+
+        }
+    }
+
+    .active {
+        font-size: .9vw;
+        padding: 0.37vw 0.8vw;
+        text-align: center;
+        color: #0d0c22;
+        // border-left: 1px solid #fff;
+        font-style: 300;
+        background-color: #707070 !important;
+    }
+}
+
+.card .image-container {
+    position: relative;
+    width: 100%;
+    height: 7vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: .5vw;
+    border-top-right-radius: 3.4vw;
+    background-color: #e2e2e2;
+
+    img {
+        width: 12vw;
+    }
+}
+
+//Hinh
+// .card .image-container img {
+//     width: 90%;
+//     height: 90%;
+//     -o-object-fit: cover;
+//     object-fit: cover;
+//     border-radius: inherit;
+//     mix-blend-mode: darken;
+// }
+.Products_Container_header-page {
+    font-size: 1vw;
+}
+
+.card .heart_product {
+    position: absolute;
+    width: 1vw;
+    height: 1vw;
+    top: .1vw;
+    right: .4vw;
+    cursor: pointer;
+    color: #ff5f5f;
+}
+
+.cart_icon {
+    height: .7vw;
+}
+
+.card .content .brand {
+    font-weight: 900;
+    color: #707070;
+    height: 3.8vw;
+    margin-top: .4vw;
+    font-size: .8vw;
+}
+
+.card .content .color-size-container {
+    display: flex;
+    font-weight: 700;
+    color: #a8a8a8;
+}
+
+.card .content .color-size-container>* {
+    flex: 1;
+    font-size: .8vw;
+}
+
+.size-container {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    list-style-type: none;
+    margin-top: .2vw;
+
+    .name {
+        font-weight: 700;
+        font-size: .7vw !important;
+    }
+}
+
+.card .content .color-size-container .colors .colors-container {
+    list-style-type: none;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.3vw;
+    padding: 0;
+    margin-top: 1.3vw;
+    margin-bottom: 0;
+}
+
+.card .content .rating {
+    display: flex;
+    justify-content: space-between;
+    color: #a8a8a8;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1.2vw;
+
+    span {
+        font-size: .8vw;
+    }
+}
+
+.card .content .rating svg {
+    height: .79vw;
+    padding: .1vw;
+}
+
+.card .button-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.3vw;
+    margin-top: .5vw;
+}
+
+.button-container_detail {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.3vw;
+}
+
+.detailproduct_button {
+    font-size: .7vw;
+    border-radius: 4.3vw 4.3vw 0.7vw 0.7vw;
+    border: none;
+    width: 75%;
+    background: var(--accent-color);
+    color: white;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.detailproduct_button:hover {
+    background: orangered;
+
+}
+
+.price_product {
+    font-size: .8vw;
+}
+
+.card .button-container .button {
+    border-radius: 4.3vw 4.3vw 0.7vw 0.7vw;
+    border: none;
+    padding: 0.5vw 0;
+    background: var(--accent-color);
+    color: white;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.card .button-container .button:hover {
+    background: orangered;
+}
+
+
+.card .button-container .cart-button {
+    display: grid;
+    place-content: center;
+    width: 3vw;
+    border-radius: 2vw 2vw 1vw 1vw;
+}
+
+.card:hover {
+    transform: scale(1.03);
+}
+
+.container_product_off {
+    font-size: 1vw;
+    display: flex;
+    justify-content: flex-end;
+}
+.modal_detailproduct {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+
+.modal_detailproduct.active {
+    display: flex;
+
+}
+
+@keyframes headerNotifyAni {
+    from {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.comment_show-content {
+    border-radius: .5vw;
+    width: 55%;
+    padding: 2vw;
+    background-color: #fefefe;
+    animation: headerNotifyAni linear 0.5s;
+}
+
+.comment_show-content.open {
+    display: block;
+}
+
+.detailproduct_containet {
+    width: 100%;
+    display: flex;
+    justify-content: center
+}
+
+.header_showcomment {
+    display: flex;
+    justify-content: center;
+    font-size: 2vw;
+}
+
+.navbar_showcomment {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.navbar_showcomment-item {
+    flex: 4 1;
+    display: flex;
+    align-items: center;
+    width: 40vw;
+    justify-content: space-between;
+    list-style-type: none;
+}
+
+.navbar_showcomment-item li {
+    padding: 0.4vw 1.6vw;
+    font-size: 1vw;
+    background-color: #ebebeb;
+    cursor: pointer;
+}
+
+.navbar_showcomment-start {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    h1 {
+        font-size: 2.5vw;
+    }
+}
+
+.rating_detail-comment {
+    font-size: 1vw;
+}
+
+.no_comment {
+    height: 100%;
+    display: flex;
+    font-size: 1.4vw;
+    justify-content: center;
+    align-items: center;
+}
+
+.content_showcomment-item-name {
+    h2 {
+        font-size: 1vw;
+        font-weight: 500;
+    }
+}
+
+.content_showcomment {
+    margin-top: .5vw;
+    width: 100%;
+    height: 28vw;
+    overflow-y: scroll;
+}
+
+.content_showcomment::-webkit-scrollbar {
+    width: 6px;
+    /* Chiều rộng của thanh cuộn dọc */
+    height: 6px;
+    /* Chiều cao của thanh cuộn ngang */
+}
+
+.content_showcomment::-webkit-scrollbar-thumb {
+    background-color: #c1c1c1;
+    /* Màu của phần tay cầm thanh cuộn */
+}
+
+.content_showcomment-item-img {
+    width: 1.8vw;
+    height: 1.8vw;
+    margin-right: .5vw;
+
+    img {
+        width: 100%;
+        border-radius: 50%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+
+.no_comment {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content_showcomment-user {
+    display: flex;
+    font-size: .7vw;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.content_showcomment-item {
+    padding-top: .8vw;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border-bottom: .1vw solid #afafaf;
+}
+
+.content_showcomment-item_comment {
+    display: flex;
+    flex-direction: column;
+}
+
+.content_showcomment-item_comment p {
+    color: #000;
+    padding: .3vw 1vw;
+    font-size: 1vw;
+    word-wrap: break-word;
+    /* Cho phép xuống dòng khi cần thiết */
+    overflow-wrap: break-word;
+    margin-bottom: 0;
+    /* Tương tự như word-wrap, hỗ trợ tốt hơn */
+}
+
+.content_showcomment-info {
+    display: flex;
+}
+
+.content_showcomment-item_comment_repcomment {
+    font-size: 0.8vw;
+    display: flex;
+    margin-bottom: 0.5vw;
+    padding: 0 1vw;
+
+    div {
+        display: inline-block;
+        background-color: #ebebeb;
+        padding: .4vw .67vw;
+        border-radius: .3vw;
+
+    }
+}

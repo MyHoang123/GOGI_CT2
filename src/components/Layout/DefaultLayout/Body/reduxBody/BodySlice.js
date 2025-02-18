@@ -5,7 +5,7 @@ import 'sweetalert2/src/sweetalert2.scss'
 import { OpenLoading, CloseLoading } from "~/hooks/Loading";
 const BodySlice = createSlice({
   name: 'products',
-  initialState: { categoris: {Type: [], categori: []}, products: { product: [], page: 1 },comment: [],lenghtCard: 0 },
+  initialState: { categoris: { Type: [], categori: [] }, products: { product: [], page: 1 }, comment: [], lenghtCard: 0, lenghtProduct: 0 },
   reducers: {
     search: (state, action) => {
       const result = []
@@ -92,7 +92,7 @@ const BodySlice = createSlice({
       state.products.product = newArr
     },
     resetData: (state, action) => {
-      state.categoris = {Type: [], categori: [], }
+      state.categoris = { Type: [], categori: [], }
       state.products = { product: [], page: 1 }
     },
     resetDetailProduct: (state, action) => {
@@ -106,60 +106,71 @@ const BodySlice = createSlice({
     },
   },
   extraReducers: builder => {
-    builder.addCase(getProduct.fulfilled, (state, action) => {
+    builder.addCase(getProduct.pending, (state, action) => {
+      OpenLoading()
+    }).addCase(getProduct.fulfilled, (state, action) => {
+      CloseLoading()
       state.products.product = action.payload[0]
-      state.categoris.Type = action.payload[2]
-      state.categoris.categori = action.payload[1]
+      state.lenghtProduct = action.payload[1].Lenght
+    }).addCase(getCate.fulfilled, (state, action) => {
+      state.categoris.Type = action.payload[1]
+      state.categoris.categori = action.payload[0]
+    }).addCase(getComment.pending, (state, action) => {
+      OpenLoading()
     }).addCase(filterCategoris.pending, (state, action) => {
       OpenLoading()
     }).addCase(filterCategoris.fulfilled, (state, action) => {
       CloseLoading()
-      state.products.product = action.payload
-      state.products.page = 1
+      state.products.product = action.payload[0]
+      state.lenghtProduct = action.payload[1].Lenght
     }).addCase(getComment.fulfilled, (state, action) => {
       state.comment = action.payload
+      CloseLoading()
     }).addCase(addCard.pending, (state, action) => {
     }).addCase(addCard.fulfilled, (state, action) => {
-        if(action.payload === 'Thanh cong') {
-          state.lenghtCard += 1
-          Swal.fire({
-            position: "top-end",
-            icon: "success",
-            title: "Thành Công",
-            showConfirmButton: false,
-            timer: 1500
-          });
-        }
-        else {
-          Swal.fire({
-            position: "top-end",
-            icon: "error",
-            title: "Đã tồn tại",
-            showConfirmButton: false,
-            timer: 1000
-          });
-        }
-      }).addCase(getLengthCard.fulfilled, (state, action) => {
-        state.lenghtCard = action.payload
-      })
+      if (action.payload === 'Thanh cong') {
+        state.lenghtCard += 1
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Thành Công",
+          showConfirmButton: false,
+          timer: 1500
+        });
+      }
+      else {
+        Swal.fire({
+          position: "top-end",
+          icon: "error",
+          title: "Đã tồn tại",
+          showConfirmButton: false,
+          timer: 1000
+        });
+      }
+    }).addCase(getLengthCard.fulfilled, (state, action) => {
+      state.lenghtCard = action.payload
+    })
   }
 })
-export const getProduct = createAsyncThunk('getProduct', async () => {
-  const resProduct = await axios.get(`${process.env.REACT_APP_CALL_API}/api/v12/showproduct`)
+export const getProduct = createAsyncThunk('getProduct', async (page) => {
+  const resProduct = await axios.get(`${process.env.REACT_APP_CALL_API}/api/v12/showproduct?page=${page}`)
+  return [resProduct.data.data, resProduct.data.lenght]
+})
+export const getCate = createAsyncThunk('getCate', async () => {
   const resCate = await axios.get(`${process.env.REACT_APP_CALL_API}/api/v12/showcategori`)
   const resTypes = await axios.get(`${process.env.REACT_APP_CALL_API}/api/v12/showtype`)
-  return [resProduct.data.data, resCate.data.data, resTypes.data.data]
+  return [resCate.data.data, resTypes.data.data]
 })
 export const filterCategoris = createAsyncThunk('filterCategoris', async (Filter) => {
-  const resFilterCate = await axios.get(`${process.env.REACT_APP_CALL_API}/api/v12/filtercategori?IdType=${Filter.IdType}&IdCate=${Filter.IdCate}`);
-  return resFilterCate.data.data
+  const resFilterCate = await axios.get(`${process.env.REACT_APP_CALL_API}/api/v12/filtercategori?IdType=${Filter.IdType}&IdCate=${Filter.Cate}&page=${Filter.Page}`);
+  return [resFilterCate.data.data,resFilterCate.data.lenght]
 })
 export const getComment = createAsyncThunk('getComment', async (IdProduct) => {
   const resComment = await axios.get(`${process.env.REACT_APP_CALL_API}/api/v12/showcomment?IdProduct=${IdProduct}`);
   return resComment.data.data
 })
 export const addCard = createAsyncThunk('addCard', async (Product) => {
-  const resAddCard = await axios.post(`${process.env.REACT_APP_CALL_API}/api/v12/addcard`,{IdProduct: Product.IdProduct,token: Product.token});
+  const resAddCard = await axios.post(`${process.env.REACT_APP_CALL_API}/api/v12/addcard`, { IdProduct: Product.IdProduct, token: Product.token });
   return resAddCard.data.massege
 })
 export const getLengthCard = createAsyncThunk('getLengthCard', async (Token) => {
