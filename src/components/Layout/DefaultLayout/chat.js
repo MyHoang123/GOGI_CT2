@@ -4,11 +4,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRocketchat } from '@fortawesome/free-brands-svg-icons';
 import { faSquareCaretDown, faCaretDown, faCheckDouble } from '@fortawesome/free-solid-svg-icons';
 import { useState, useRef, useEffect, memo } from "react";
+import { useNavigate } from 'react-router-dom';
 function Chat({ cx, socket }) {
+    const navigate = useNavigate()
     const [chat, setChat] = useState(false)
     const [message, setMessage] = useState([])
     const valueChat = useRef()
-
     const handleClickSendChat = (e) => {
         e.preventDefault()
         const check = valueChat.current.value.split('').some(char => char !== ' ')
@@ -56,6 +57,9 @@ function Chat({ cx, socket }) {
                     setMessage(response.Data)
                 }
             })
+        }
+        else {
+            navigate('/login')
         }
     }
     useEffect(() => {
