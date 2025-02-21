@@ -182,9 +182,9 @@ function BestSeller({ cx, Animation, indexSlide }) {
                     </div>
                 </div>
                 <div className={cx('Bestseller_Container_contain_right')}>
-                    {/* <video className={cx('bestseller_video-item')} muted loop>
+                    <video className={cx('bestseller_video-item')} muted autoPlay loop>
                         <source src={VideoDemo} type="video/mp4" />
-                    </video> */}
+                    </video>
                     <div className={cx('bestseller_modal_video')}></div>
                 </div>
             </div>
