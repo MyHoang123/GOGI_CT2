@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { addCard } from '../Body/reduxBody/BodySlice'
 import { Cookies } from "react-cookie";
-import { faCartShopping, faStar, faStarHalfStroke } from '@fortawesome/free-solid-svg-icons'
+import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
 import { memo } from "react";
 function BestSeller({ cx, Animation, indexSlide }) {
     const Products = useSelector(listBestSeller)
@@ -182,9 +182,9 @@ function BestSeller({ cx, Animation, indexSlide }) {
                     </div>
                 </div>
                 <div className={cx('Bestseller_Container_contain_right')}>
-                    <video className={cx('bestseller_video-item')} muted autoPlay loop>
+                    {/* <video className={cx('bestseller_video-item')} muted loop>
                         <source src={VideoDemo} type="video/mp4" />
-                    </video>
+                    </video> */}
                     <div className={cx('bestseller_modal_video')}></div>
                 </div>
             </div>

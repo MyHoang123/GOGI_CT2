@@ -123,6 +123,12 @@ const BodySlice = createSlice({
       CloseLoading()
       state.products.product = action.payload[0]
       state.lenghtProduct = action.payload[1].Lenght
+    }).addCase(findProduct.pending, (state, action) => {
+      OpenLoading()
+    }).addCase(findProduct.fulfilled, (state, action) => {
+      state.products.product = action.payload[0]
+      state.lenghtProduct = action.payload[1][0].Lenght
+      CloseLoading()
     }).addCase(getComment.fulfilled, (state, action) => {
       state.comment = action.payload
       CloseLoading()
@@ -164,6 +170,10 @@ export const getCate = createAsyncThunk('getCate', async () => {
 export const filterCategoris = createAsyncThunk('filterCategoris', async (Filter) => {
   const resFilterCate = await axios.get(`${process.env.REACT_APP_CALL_API}/api/v12/filtercategori?IdType=${Filter.IdType}&IdCate=${Filter.Cate}&page=${Filter.Page}`);
   return [resFilterCate.data.data,resFilterCate.data.lenght]
+})
+export const findProduct = createAsyncThunk('findProduct', async (Search) => {
+  const resFindProduct = await axios.get(`${process.env.REACT_APP_CALL_API}/api/v12/search?keyword=${Search.value}&page=${Search.Page}`);
+  return [resFindProduct.data.data,resFindProduct.data.lenght]
 })
 export const getComment = createAsyncThunk('getComment', async (IdProduct) => {
   const resComment = await axios.get(`${process.env.REACT_APP_CALL_API}/api/v12/showcomment?IdProduct=${IdProduct}`);

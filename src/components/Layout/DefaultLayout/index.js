@@ -4,7 +4,7 @@ import { faBagShopping } from '@fortawesome/free-solid-svg-icons';
 import { Header } from "./Header";
 import { useState, useRef, useEffect, memo } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { lenghtCard, listCategoris } from './Body/reduxBody/BodySelector';
+import { lenghtCard, listCategoris, lenghtProductSelect } from './Body/reduxBody/BodySelector';
 import { getCate, getProduct } from './Body/reduxBody/BodySlice';
 import { Link } from 'react-router-dom';
 import Chat from './chat'
@@ -23,6 +23,7 @@ function DefaultLayout({ Children }) {
     const dispatch = useDispatch()
     const LenghtCard = useSelector(lenghtCard)
     const Cate = useSelector(listCategoris)
+    const lenghtProduct = useSelector(lenghtProductSelect)
     const [indexSlide, setIndexSlide] = useState([0, 1, 2, 3, 4, 5])
     const [socket, setSocket] = useState(null)
     const Animation = useRef([])
@@ -49,9 +50,13 @@ function DefaultLayout({ Children }) {
                 else if (value > 52) {
                     if (value > 119) {
                         Animation.current[1].classList.add(cb('animation_heighlow'))
-                        if (Cate.length === 0) {
+                        if (lenghtProduct === 0 && Cate.length === 0) {
                             dispatch(getCate())
                             dispatch(getProduct(1))
+                            window.removeEventListener('scroll', handleScroll)
+                        }
+                        else if (lenghtProduct !== 0 && Cate.length === 0){
+                            dispatch(getCate())
                             window.removeEventListener('scroll', handleScroll)
                         }
                     }
@@ -71,7 +76,7 @@ function DefaultLayout({ Children }) {
         return () => {
             window.removeEventListener('scroll', handleScroll)
         }
-    }, [Cate])
+    }, [Cate,lenghtProduct])
     return (
         <div className={cx('wrapper')}>
             <Header getSocket={getSocket} setIndexSlide={setIndexSlide} indexSlide={indexSlide} Animation={Animation} anchoring={anchoring} buttonAction={buttonAction} />

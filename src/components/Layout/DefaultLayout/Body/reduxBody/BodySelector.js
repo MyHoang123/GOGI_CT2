@@ -9,6 +9,9 @@ export const listProductSelectorAll = createSelector(productsSelector,lenghtProd
     let trang = Math.ceil(lenght / 8)
     return [listProducts.product,listProducts.page,trang]
 })
+export const lenghtProductSelect = createSelector(lenghtProductSelector, (lenght) => {
+    return lenght
+})
 export const numPage =  createSelector(productsSelector,lenghtProductSelector, (listProducts,lenght) => {
     let trang = Math.ceil(lenght / 8)
     return [trang,listProducts.page]

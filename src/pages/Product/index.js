@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { RenderStar } from '~/hooks';
 import { Cookies } from 'react-cookie';
 import { listProductSelectorAll } from '../../components/Layout/DefaultLayout/Body/reduxBody/BodySelector';
-import { filterCategoris, getComment, addCard } from '../../components/Layout/DefaultLayout/Body/reduxBody/BodySlice';
+import { filterCategoris, getComment, addCard, findProduct } from '../../components/Layout/DefaultLayout/Body/reduxBody/BodySlice';
 import { Fragment, memo, useEffect } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { useRef } from 'react';
@@ -16,15 +16,15 @@ import classNames from "classnames/bind"
 const cx = classNames.bind(styles)
 
 function ProductPage() {
-
     const { Categori } = useParams()
+    const dispatch = useDispatch()
     const location = useLocation();
     const cookies = new Cookies()
     const navigate = useNavigate()
     const params = new URLSearchParams(location.search)
     const type = params.get('type')
     const page = params.get('page')
-    const dispatch = useDispatch()
+    const keyword = params.get('keyword')
     const ModalDetail = useRef()
     const ALLStar = useRef()
     const productAll = useSelector(listProductSelectorAll)
@@ -45,10 +45,13 @@ function ProductPage() {
         }
     }
     useEffect(() => {
-        if (Categori !== undefined) {
+        if (Categori !== undefined && Categori !== 'search')  {
             type === null ? dispatch(filterCategoris({ Cate: Categori, IdType: null, Page: page !== null ? page : 1 })) : dispatch(filterCategoris({ Cate: Categori, IdType: type, Page: page !== null ? page : 1 }))
         }
-    }, [Categori, page, type])
+        else if (Categori === 'search') {
+            dispatch(findProduct({value: keyword,Page: page !== null ? page : 1 }))
+        }
+    }, [Categori, page, type, keyword])
     return (
         <Fragment>
             <div className={cx('Products_Container_contain')}>
@@ -95,7 +98,7 @@ function ProductPage() {
                 ))}
             </div>
             <div className={cx('Container_page')}>
-                <Pages cx={cx} numPage={page !== null ? parseInt(page) : 1} PageAll={productAll[2]} Cate={Categori} Type={type} />
+                <Pages cx={cx} numPage={page !== null ? parseInt(page) : 1} PageAll={productAll[2]} Cate={Categori} Type={type} keyword = {keyword} />
             </div>
             <DetailProduct ModalDetail={ModalDetail} ALLStar={ALLStar} />
         </Fragment>

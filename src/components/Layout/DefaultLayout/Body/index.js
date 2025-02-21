@@ -1,9 +1,11 @@
 
-import { memo } from "react";
+import { memo, useState, useEffect, useRef } from "react";
 import { MemoizedHeaderBody, MemoizedLogoResource } from "./HeaderBody";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from "react-redux";
+import { useDebounce } from '~/hooks';
+import { useNavigate } from "react-router-dom";
 import Categoris from "./products/Categories";
 import BodySlice from "./reduxBody/BodySlice";
 
@@ -14,6 +16,10 @@ import styles from "./BodyLayout.module.scss";
 const cx = classNames.bind(styles);
 function Body({ Animation, Children }) {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const [valueSearch, setValueSearch] = useState('')
+    const LoadSearch = useRef()
+    const debounce = useDebounce(valueSearch, 700)
     const hanldeClickRanDom = () => {
         dispatch(BodySlice.actions.randomProduct())
     }
@@ -26,6 +32,17 @@ function Body({ Animation, Children }) {
     const handleClickMaxProduct = () => {
         dispatch(BodySlice.actions.maxProduct())
     }
+    const handleChangeSearch = (e) => {
+        LoadSearch.current.classList.add(cx('active'))
+        setValueSearch(e)
+    }
+    useEffect(() => {
+        LoadSearch.current.classList.remove(cx('active'))
+        if (!debounce.trim()) {
+            return
+        }
+        navigate(`/search?keyword=${debounce}`)
+    }, [debounce])
     return (
         <div ref={e => Animation.current[1] = e} className={cx('Body_container')}>
             <MemoizedHeaderBody cx={cx} />
@@ -39,8 +56,8 @@ function Body({ Animation, Children }) {
                         <div className={cx('Products_Container_header-filter')}>
                             <div className={cx('group')}>
                                 <FontAwesomeIcon className={cx('icon')} icon={faMagnifyingGlass} />
-                                <input className={cx('input')} type="text" placeholder="Search" />
-                                <div className={cx('load_contain')}>
+                                <input onChange={(e) => handleChangeSearch(e.target.value)} className={cx('input')} type="text" placeholder="Search" />
+                                <div ref={LoadSearch} className={cx('load_contain')}>
                                     <FontAwesomeIcon className={cx('icon_load')} icon={faSpinner} />
                                 </div>
                             </div>

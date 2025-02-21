@@ -4,7 +4,7 @@ import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons
 import { Link } from "react-router-dom";
 // import BodySlice from '../../components/Layout/DefaultLayout/Body/reduxBody/BodySlice';
 
-function Pages({ cx, numPage, PageAll, Cate, Type }) {
+function Pages({ cx, numPage, PageAll, Cate, Type, keyword }) {
     const handlePageChangeButton = (btn) => {
         if (btn === 0) {
 
@@ -38,7 +38,7 @@ function Pages({ cx, numPage, PageAll, Cate, Type }) {
                 {newArr.map((page) => (
                     <Fragment key={page}>
                         <li>
-                            <Link to={`/${Cate !== undefined ? Cate : 'all'}?page=${page}${Type !== null ? `&type=${Type}` : ''}`} className={page === numPage ? cx('active') : null}>{page}</Link>
+                            <Link to={`/${Cate !== undefined ? Cate : 'all'}?page=${page}${Type !== null ? `&type=${Type}` : ''}${keyword !== null ? `&keyword=${keyword}` : ''}`} className={page === numPage ? cx('active') : null}>{page}</Link>
                         </li>
                     </Fragment>
                 ))}
